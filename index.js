@@ -25,6 +25,8 @@ let persons = [
     }
 ]
 
+app.use(express.json())
+
 
 app.get("/", (req, res) => {
 
@@ -37,10 +39,12 @@ app.get("/api/persons", (req, res) => {
     res.json(persons)
 })
 
+
 app.get("/info", (req, res) => {
     res.status(200).send(`<p>The phonebook has info for ${persons.length} people </p> <br /> ${new Date().toUTCString()}`)
     res.send(``)
 })
+
 
 app.get("/api/persons/:id", (req, res) => {
     const {id} = req.params
@@ -57,12 +61,42 @@ app.get("/api/persons/:id", (req, res) => {
    res.json(getPerson)
 })
 
+
 app.delete("/api/persons/:id", (req, res) => {
   const {id} = req.params
 
   persons = persons.filter((person) => person.id !== Number(id))
 
   res.status(204).send()
+
+})
+
+const getMaxId = () => {
+  const maxId = persons.length > 0
+  ? Math.max(...persons.map((person) => person.id) ) : 0
+
+  return maxId + 1
+}
+
+
+
+app.post("/api/persons", (req, res) => {
+
+  // console.log(req.body)
+
+  const body = req.body
+
+  const contacts = {
+    name: body.name,
+    number: body.number,
+    id: getMaxId()
+  }
+
+  persons = persons.concat(contacts)
+
+  res.json(persons)
+
+
 
 })
 
