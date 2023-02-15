@@ -32,10 +32,14 @@ app.get("/", (req, res) => {
 
 })
 
-app.get("/api/person", (req, res) => {
-    console.log(req)
+app.get("/api/persons", (req, res) => {
 
     res.json(persons)
+})
+
+app.get("/info", (req, res) => {
+    res.status(200).send(`<p>The phonebook has info for ${persons.length} people </p> <br /> ${new Date().toUTCString()}`)
+    res.send(``)
 })
 
 app.listen(PORT, () => {
