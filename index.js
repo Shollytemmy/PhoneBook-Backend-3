@@ -86,6 +86,14 @@ app.post("/api/persons", (req, res) => {
 
   const body = req.body
 
+  if(!body.name || !body.number){
+    return res.status(404).json({
+      message: "Not Found",
+      status: 404
+    })
+
+  }
+
   const contacts = {
     name: body.name,
     number: body.number,
