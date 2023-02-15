@@ -94,6 +94,14 @@ app.post("/api/persons", (req, res) => {
 
   }
 
+  if(persons.find((person) => person.name === body.name)){
+    return res.status(409).json({
+      error: "Name already exists"
+    })
+  }
+
+  
+
   const contacts = {
     name: body.name,
     number: body.number,
@@ -104,6 +112,11 @@ app.post("/api/persons", (req, res) => {
 
   res.json(persons)
 
+  // const id = Number(req.params.id)
+
+
+ 
+
 
 
 })
@@ -112,3 +125,13 @@ app.listen(PORT, () => {
 
     console.log(`The App is listen to port ${PORT}`)
 })
+
+
+/**
+ *  findContact  = persons.find((person) =>  person.name === body.name)
+  if(findContact.name === body.name){
+    return  res.status(404).json({
+      error: "Name Already Exists"
+    })
+  }
+ */
