@@ -47,6 +47,7 @@ app.get("/api/persons/:id", (req, res) => {
     
 
     const getPerson = persons.find((person) => person.id === Number(id))
+
     if(!getPerson){
         return res.status(404).json({
             message: "Not Found",
@@ -54,6 +55,15 @@ app.get("/api/persons/:id", (req, res) => {
         })
     }
    res.json(getPerson)
+})
+
+app.delete("/api/persons/:id", (req, res) => {
+  const {id} = req.params
+
+  persons = persons.filter((person) => person.id !== Number(id))
+
+  res.status(204).send()
+
 })
 
 app.listen(PORT, () => {
