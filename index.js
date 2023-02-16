@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express()
+let morgan = require('morgan')
 const  PORT = 3001
 
 let persons = [
@@ -26,6 +27,7 @@ let persons = [
 ]
 
 app.use(express.json())
+app.use(morgan('tiny', function(req, res){return JSON.stringify(req.body.name)}))
 
 
 app.get("/", (req, res) => {
@@ -112,7 +114,7 @@ app.post("/api/persons", (req, res) => {
 
   res.json(persons)
 
-  // const id = Number(req.params.id)
+ 
 
 
  
@@ -127,11 +129,3 @@ app.listen(PORT, () => {
 })
 
 
-/**
- *  findContact  = persons.find((person) =>  person.name === body.name)
-  if(findContact.name === body.name){
-    return  res.status(404).json({
-      error: "Name Already Exists"
-    })
-  }
- */
