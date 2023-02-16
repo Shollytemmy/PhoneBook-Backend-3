@@ -114,14 +114,16 @@ app.post("/api/persons", (req, res) => {
 
   res.json(persons)
 
- 
-
-
- 
-
-
-
 })
+
+
+const unknownEndpoint = (req, res) => {
+  return res.status(404).json({
+    error: "Not Found"
+  })
+}
+
+app.use(unknownEndpoint)
 
 app.listen(PORT, () => {
 
